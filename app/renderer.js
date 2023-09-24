@@ -1,3 +1,5 @@
+const {shell} = require('electron');
+
 const linksSection       = document.querySelector('.links');
 const errorMessage       = document.querySelector('.error-message');
 const newLinkForm        = document.querySelector('.new-link-form');
@@ -93,3 +95,15 @@ const validateResponse = (response) => {
 
     throw new Error(`Status code of ${response.status} ${response.statusText}`);
 }
+
+/*
+ * Open the links in the links section in default system browser.
+ */
+linksSection.addEventListener('click', (event) =>{
+    if(event.target.href)
+    {
+        event.preventDefault();
+
+        shell.openExternal(event.target.href);
+    }
+});
