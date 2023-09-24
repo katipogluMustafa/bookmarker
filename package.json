@@ -1,0 +1,15 @@
+{
+  "name": "bookmarker",
+  "version": "1.0.0",
+  "description": "Basic bookmarker app",
+  "main": "./app/main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mustafa Katipoğlu",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^26.2.2"
+  }
+}
