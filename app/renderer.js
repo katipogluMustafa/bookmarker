@@ -36,12 +36,14 @@ newLinkForm.addEventListener('submit', (event)=>{
     const url = newLinkUrl.value;
 
     fetch(url)
+        .then(validateResponse)
         .then(response => response.text())
         .then(parseResponse)
         .then(findHtmlPageTitle)
         .then(title => storeLink(title, url))
         .then(clearNewLinkFormField)
-        .then(renderLinks);
+        .then(renderLinks)
+        .catch(error => handleFetchErrors(error, url));
 });
 
 const storeLink = (title, url) => {
@@ -75,3 +77,19 @@ clearStorageButton.addEventListener('click', ()=>{
 });
 
 renderLinks();
+
+const handleFetchErrors = (error, url) => {
+    errorMessage.innerHTML = `
+    There was an issue adding "$(url)": ${error.message}
+    `.trim();
+    setTimeout(()=>errorMessage.innerText = null, 5000);
+}
+
+const validateResponse = (response) => {
+    if(response.ok)
+    {
+        return response;
+    }
+
+    throw new Error(`Status code of ${response.status} ${response.statusText}`);
+}
